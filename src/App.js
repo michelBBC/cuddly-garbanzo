@@ -23,12 +23,15 @@ function App() {
     setName(e.target.value);
   }
 
+  // const apiUrl = 'http://localhost:8080/';
+  const apiUrl = 'https://intense-harbor-37098.herokuapp.com/';
+
   function handleClick() {
-    fetch('http://localhost:8080/search?q=' + name + '&mixin=image')
+    fetch(apiUrl+'search?q=' + name + '&mixin=image')
       .then(response => response.json())
       .then(data => setProducts(data))
       .then(setTimeout(window.scrollTo(0, myRef.current.offsetTop), 1000));
-    fetch('http://localhost:8080/correct?q=' + name)
+    fetch(apiUrl+'correct?q=' + name)
     .then(response => response.json())
     .then(data => setSuggestions(data));  
   }
@@ -60,21 +63,12 @@ function App() {
         <Switch className="App-switch" checked={isSwitchedOn} onChange={handleSwitch} />
         </p>
       </header>
-      <Correction ref={myRef} display={isSwitchedOn} suggestions={suggestions}/>
-      <List className="list-products" items={products} />
+      <Correction className="list-corrections" ref={myRef} displaySuggestions={isSwitchedOn} suggestions={suggestions}/>
+      <List className="list-products" name={name} displaySuggestions={isSwitchedOn} items={products} />
       <Img item={isClicked}/>
       <p>
-        Edit <code>src/App.js</code> and save to reload.
+        Footer text
       </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-        </a>
-
     </div>
   );
 }

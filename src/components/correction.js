@@ -1,4 +1,5 @@
 import React, {useState, useRef, useImperativeHandle, forwardRef} from 'react';
+import shortid from 'shortid';
 
 function Correction(props, ref) {
     const [name, setName] = useState('name'); 
@@ -16,7 +17,7 @@ function Correction(props, ref) {
     }
     console.log(myRef);
 
-    if (!props.suggestions || !props.display) {
+    if (!props.suggestions || !props.displaySuggestions) {
         return <div ref={myRef} />;
     } else {
         return (
@@ -24,12 +25,12 @@ function Correction(props, ref) {
             <h3 ref={myRef}>Did you mean?</h3>
             <ul>
             {props.suggestions.map(item => (
-                <li key={item} onClick={handleClick}>{item}</li>
+                <li key={shortid.generate()} onClick={handleClick}>{item}</li>
             ))}
             </ul>
         </>
         );
     }
   }
-Correction = forwardRef(Correction)
+// Correction = forwardRef(Correction)
 export default Correction;

@@ -32,5 +32,5 @@ function Correction(props, ref) {
         );
     }
   }
-// Correction = forwardRef(Correction)
+Correction = forwardRef(Correction)
 export default Correction;

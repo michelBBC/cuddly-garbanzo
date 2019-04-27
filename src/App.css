@@ -27,6 +27,20 @@
   color: #61dafb;
 }
 
+.App-main {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+}
+
+.App-main > * {
+  grid-column: 2 / -2;
+}
+
+.App-main > .full {
+  grid-column: 1 / -1;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -103,17 +117,38 @@
 
 .list-products-header {
   text-align: left;
-  padding-left: 10;
+  padding-left: 10px;
 }
 .list-products {
   text-align: left;
-  padding-left: 10;
 }
 
 h1 {
-  font-weight: lighter;
+  font-weight: 100;
+  margin-bottom: 8.5px;
 }
 
-header.h3 {
+.App-header h4 {
+  font-weight: initial;
+  margin-bottom: 8.5px;
+}
+
+.corrections {
+  text-align: left;
+}
+
+.container-switch {
+  margin-top: 7px;
+  font-size: 12pt;
+}
+
+footer {
+  font-size: 10pt;
   font-weight: 350;
+  text-align: right;
+  padding-right: 20px;
+  background-color: lightgray;
+  padding-top: 7px;
+  padding-right: 20px;
+  padding-bottom: 10px;
 }

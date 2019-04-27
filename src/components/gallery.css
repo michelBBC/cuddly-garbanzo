@@ -10,8 +10,8 @@ body {
   position: relative;
   font-size: 100%;
   background: rgb(255, 255, 255);
-  background: -webkit-linear-gradient(to right, rgb(255, 255, 255), rgb(255, 255, 255));
-  background: linear-gradient(to right, rgb(255, 255, 255), rgb(255, 255, 255));
+  background: -webkit-linear-gradient(to right, rgb(236, 236, 236), #EEE);
+  background: linear-gradient(to right, rgb(236, 236, 236), #EEE);
 }
 .gallery-container {
   padding: .9375rem 0;
@@ -44,6 +44,7 @@ body {
   margin: 0 auto;
   border: 5px solid #ccc;
   border-radius: 15px;
+  background-color: white;
   }
 
 

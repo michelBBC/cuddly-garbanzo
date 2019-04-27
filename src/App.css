@@ -3,10 +3,6 @@
 }
 
 .App-logo {
-/*  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-*/
   height: 60px;
   margin-left: 10px;
   margin-bottom: -25px;
@@ -72,24 +68,10 @@
 }
 
 .App-switch {
-  onColor: "#86d3ff";
-  onHandleColor: "#2693e6";
-  handleDiameter: 30;
-  uncheckedIcon: false;
-  checkedIcon: false;
-  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.6)";
-  activeBoxShadow: "0px 0px 1px 10px rgba(0, 0, 0, 0.2)";
   height: 20px;
   width: 48px;
   margin-bottom: 0px;
   margin-left: 10px;
-  position-top: 5;
-  position-left: 10;
-  position-right: -5;
-  position-bottom: -5;
-  absoluteFillObject: true;
-  alignSelf: 'flex-end';
-  marginTop: -5;
   position: 'absolute';
 }
 
@@ -114,6 +96,10 @@
 	vertical-align: middle;
   cursor: pointer;
 }
+
+.form-button:active {
+    background-color: lightgray;
+  }
 
 .list-products-header {
   text-align: left;

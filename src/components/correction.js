@@ -1,4 +1,4 @@
-import React, {useState, useRef, useImperativeHandle, forwardRef} from 'react';
+import React, {useState} from 'react';
 import shortid from 'shortid';
 
 function Correction(props, ref) {

@@ -1,13 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import logo from './search.png';
 import './App.css';
 
 import Correction from './components/correction';
-import Img from './components/img';
-import List from './components/list';
 import Products from './components/products';
 
-import Switch from "react-switch";
+import Switch from 'react-switch';
 import {scroller} from 'react-scroll';
 
 
@@ -18,7 +16,6 @@ function App() {
   const [suggestions, setSuggestions] = useState(null);
   const [isClicked, setClick] = useState(false);
   const [isSwitchedOn, setSwitch] = useState(false);
-  const resultsRef = useRef(undefined);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -32,7 +29,7 @@ function App() {
 
   function scrollTo() {
       scroller.scrollTo('app-main', {
-        duration: 800,
+        duration: 1500,
         delay: 0,
         smooth: 'easeInOutQuart'
       })
@@ -70,11 +67,11 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>welcome to product search<img src={logo} className="App-logo" alt="search-icon" /></h1>
-        <div className="form-container">
-        <input className="form-input"
+    <div className='App'>
+      <header className='App-header'>
+        <h1>welcome to product search<img src={logo} className='App-logo' alt='search-icon' /></h1>
+        <div className='form-container'>
+        <input className='form-input'
           defaultValue={defaultInput}
           value={name}
           onClick={clickField}
@@ -85,26 +82,26 @@ function App() {
         <button className='form-button' onClick={resetQuery}> Reset </button>
         </div>
         <div className='container-switch'> Include spelling suggestions?
-        <Switch className="App-switch" 
+        <Switch className='App-switch' 
             checked={isSwitchedOn} 
             onChange={handleSwitch} 
             onColor='#00AA00'
             onHandleColor='#FFF'
             handleDiameter={30}
-            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            boxShadow='0px 1px 5px rgba(0, 0, 0, 0.6)'
+            activeBoxShadow='0px 0px 1px 10px rgba(0, 0, 0, 0.2)'
             height={20}
             width={48}
-            id="material-switch"
+            id='material-switch'
         />
         </div>
       </header>
-      <div name='app-main' className="App-main">
-        <Correction className="list-corrections" 
+      <div name='app-main' className='App-main'>
+        <Correction className='list-corrections' 
           displaySuggestions={isSwitchedOn} 
           suggestions={suggestions}
         />
-        {/* <List className="list-products" 
+        {/* <List className='list-products' 
           name={name} 
           displaySuggestions={isSwitchedOn} 
           items={products} 
@@ -116,7 +113,7 @@ function App() {
         {/* <Img item={isClicked}/> */}
       </div>
       <footer>
-      Test Demonstrator for <i>spellcheck feature</i>. <a href='https://github.com/michelBBC/cuddly-garbanzo' target="_blank"> Source</a>
+      Test Demonstrator for <i>spellcheck feature</i>. <a href='https://github.com/michelBBC/cuddly-garbanzo' target='_blank' rel='noopener noreferrer'> Source</a>
       </footer>
     </div>
   );

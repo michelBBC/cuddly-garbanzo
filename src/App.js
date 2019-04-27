@@ -16,28 +16,28 @@ function App() {
   const [suggestions, setSuggestions] = useState(null);
   const [isClicked, setClick] = useState(false);
   const [isSwitchedOn, setSwitch] = useState(false);
+  const apiUrl = 'https://intense-harbor-37098.herokuapp.com/';
 
+  // Input field events
   function handleNameChange(e) {
-    setName(e.target.value);
+    const newName = e.currentTarget.value;
+    setName(newName);
   }
 
   function clickField(e){
-    if (e.target.value === defaultInput) {
+    if (e.currentTarget.value === defaultInput) {
       setName('');
     }
   }
 
-  function scrollTo() {
-      scroller.scrollTo('app-main', {
-        duration: 1500,
-        delay: 0,
-        smooth: 'easeInOutQuart'
-      })
+  function _handleKeyDown(e) {
+    if (e.key === 'Enter') {
+      handleSubmit();
     }
+  }
 
-  // const apiUrl = 'http://localhost:8080/';
-  const apiUrl = 'https://intense-harbor-37098.herokuapp.com/';
 
+  // Submit button events
   function handleSubmit() {
     if (name !== defaultInput){
       fetch(apiUrl+'search?q=' + name + '&mixin=image')
@@ -50,22 +50,37 @@ function App() {
     }
   }
 
-  function handleSwitch() {
-    setSwitch(!isSwitchedOn);
+  function scrollTo() {
+    scroller.scrollTo('app-main', {
+      duration: 1500,
+      delay: 0,
+      smooth: 'easeInOutQuart'
+    })
   }
 
+
+  // Reset button events
   function resetQuery() {
     setName(defaultInput);
     setProducts(null);
     setSuggestions(null);
   } 
 
-  function _handleKeyDown(e) {
-    if (e.key === 'Enter') {
-      handleSubmit();
-    }
+
+  // Switch button events
+  function handleSwitch() {
+    setSwitch(!isSwitchedOn);
   }
 
+
+  // Spelling suggestions event
+  function handleSuggestionClick(e){
+    handleNameChange(e);
+    handleSubmit();
+  }
+
+
+  //Render App
   return (
     <div className='App'>
       <header className='App-header'>
@@ -100,6 +115,7 @@ function App() {
         <Correction className='list-corrections' 
           displaySuggestions={isSwitchedOn} 
           suggestions={suggestions}
+          handleSuggestionClick={handleSuggestionClick}
         />
         {/* <List className='list-products' 
           name={name} 

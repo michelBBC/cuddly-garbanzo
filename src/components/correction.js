@@ -1,24 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import shortid from 'shortid';
+import './correction.css';
 
-function Correction(props, ref) {
-    const [name, setName] = useState('name'); 
-
-    function handleClick(e) {
-        setName(e.target.key);
-    }
-
-    const suggestions = ['tata', 'baba', 'rara'];
-    
-
+function Correction(props) {
     if (!props.suggestions || !props.displaySuggestions) {
         return null;
     } else {
         return (
         <>
             <div className="corrections" ><b>Did you mean?</b>
-            {suggestions.map(item => (
-                <div key={shortid.generate()} onClick={handleClick}>{item}</div>
+            {props.suggestions.map(item => (
+                <button key={shortid.generate()} className="text-button" value={item} onClick={props.handleSuggestionClick}><u><i>{item}</i></u></button>
             ))}
             </div>
         </>

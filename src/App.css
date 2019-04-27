@@ -121,6 +121,9 @@ h1 {
 
 .corrections {
   text-align: left;
+  font-size: 14pt;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
 .container-switch {

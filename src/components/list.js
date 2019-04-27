@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import shortid from 'shortid';
+import './list.css';
 
 function List(props) {
     const [isClicked, setClick] = useState(false);
@@ -8,21 +9,21 @@ function List(props) {
 
     function handleClick(e){
         console.log(e.target);
-        isClicked ? setClick(false) : setClick(e.target.value);
+        props.isClicked ? setClick(false) : setClick(e.target.value);
     }
 
     if (!props.items) {
         return null;
     } else {
         return (
-        <>
-            <h3 className={props.className + '-header'}> {header} </h3>
+        <div className={props.className}>
+            <h4 className={props.className + '-header'}> {header} </h4>
             <ul className={props.className}>
             {props.items.map(item => (
                 <li key={shortid.generate()} value={item[1]} onClick={handleClick}>{item[0]}</li>
             ))}
             </ul>
-        </>
+        </div>
         );
         }
     }

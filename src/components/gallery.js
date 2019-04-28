@@ -7,11 +7,9 @@ import './gallery.css';
 function Gallery(props){
     const imgUrls = props.items;
     const header = props.displaySuggestions ? ['Images for ',  <u key={shortid.generate()}><i key={shortid.generate()}>{props.name}</i></u>, ':'] :['Images:'];
-
-    function renderImageContent(src, index) {
-        let [name,url] = src;
+    function renderImageContent(src) {
         return (
-            <img src={url} key={shortid.generate()} alt={name} title={name} />
+            <img src={src.image} key={shortid.generate()} alt={src.name} title={src.name} />
         ) 
     }
 

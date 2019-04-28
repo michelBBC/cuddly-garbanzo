@@ -3,8 +3,13 @@ import shortid from 'shortid';
 import './correction.css';
 
 function Correction(props) {
-    if (!props.suggestions || !props.displaySuggestions) {
-        return null;
+    if (props.correctSpelling || props.suggestions === null) {
+        return (
+            <>
+                <div className="corrections" ><b> {props.searchTerm} is spelled correctly</b></div>
+            </>
+            )
+
     } else {
         return (
         <>

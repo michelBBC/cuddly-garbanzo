@@ -4,7 +4,7 @@ import List from './list';
 import Gallery from './gallery';
 
 function Products(props) {
-    if (!props.items) {
+    if (!props.items || !props.displaySuggestions) {
         return null;
     } else {
         return (

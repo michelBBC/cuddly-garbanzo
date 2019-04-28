@@ -20,7 +20,7 @@ function List(props) {
             <h4 className={props.className + '-header'}> {header} </h4>
             <ul className={props.className}>
             {props.items.map(item => (
-                <li key={shortid.generate()} value={item[1]} onClick={handleClick}>{item[0]}</li>
+                <li key={shortid.generate()} value={item.name} onClick={handleClick}>{item.name}</li>
             ))}
             </ul>
         </div>

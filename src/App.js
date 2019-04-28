@@ -12,6 +12,7 @@ import {scroller} from 'react-scroll';
 function App() {
   const defaultInput = 'Search for a product';
   const [name, setName] = useState(defaultInput); 
+  const [correctSpelling, setCorrectSpelling] = useState(true); 
   const [products, setProducts] = useState(null);
   const [suggestions, setSuggestions] = useState(null);
   const [isSwitchedOn, setSwitch] = useState(false);
@@ -29,7 +30,7 @@ function App() {
     }
   }
 
-  function _handleKeyDown(e) {
+  function handleKeyDown(e) {
     if (e.key === 'Enter') {
       handleSubmit();
     }
@@ -39,12 +40,13 @@ function App() {
   // Submit button events
   function handleSubmit() {
     if (name !== defaultInput){
-      fetch(apiUrl+'search?q=' + name + '&mixin=image&suggestions=true')
+      fetch(apiUrl+'suggestions?q=' + name + '&mixin=image&products=true')
         .then(response => response.json())
         .then(
           data => {
             setProducts(data['results']);
             setSuggestions(data['spelling_suggestions']);
+            setCorrectSpelling(data['spelling_correct']);
             scrollTo();
           }
         );
@@ -78,6 +80,7 @@ function App() {
   function handleSuggestionClick(e){
     handleNameChange(e);
     handleSubmit();
+    setCorrectSpelling(true);
   }
 
 
@@ -91,12 +94,12 @@ function App() {
           value={name}
           onClick={clickField}
           onChange={handleNameChange}
-          onKeyDown={_handleKeyDown} 
+          onKeyDown={handleKeyDown} 
         />
         <button className='form-button' onClick={handleSubmit}> Submit </button>
         <button className='form-button' onClick={resetQuery}> Reset </button>
         </div>
-        <div className='container-switch'> Include spelling suggestions?
+        <div className='container-switch'> Include products found?
         <Switch className='App-switch' 
             checked={isSwitchedOn} 
             onChange={handleSwitch} 
@@ -113,8 +116,9 @@ function App() {
       </header>
       <div name='app-main' className='App-main'>
         <Correction className='list-corrections' 
-          displaySuggestions={isSwitchedOn} 
           suggestions={suggestions}
+          correctSpelling={correctSpelling}
+          searchTerm={name}
           handleSuggestionClick={handleSuggestionClick}
         />
         <Products name={name} 

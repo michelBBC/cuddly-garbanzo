@@ -11,7 +11,8 @@ import {scroller} from 'react-scroll';
 
 function App() {
   const defaultInput = 'Search for a product';
-  const [name, setName] = useState(defaultInput); 
+  const [term, setTerm] = useState(defaultInput);
+  const [submittedTerm, setSubmittedTerm] = useState(false);
   const [correctSpelling, setCorrectSpelling] = useState(true); 
   const [products, setProducts] = useState(null);
   const [suggestions, setSuggestions] = useState(null);
@@ -19,14 +20,14 @@ function App() {
   const apiUrl = 'https://intense-harbor-37098.herokuapp.com/';
 
   // Input field events
-  function handleNameChange(e) {
-    const newName = e.currentTarget.value;
-    setName(newName);
+  function handleInputChange(e) {
+    const newTerm = e.currentTarget.value;
+    setTerm(newTerm);
   }
 
   function clickField(e){
     if (e.currentTarget.value === defaultInput) {
-      setName('');
+      setTerm('');
     }
   }
 
@@ -39,14 +40,15 @@ function App() {
 
   // Submit button events
   function handleSubmit() {
-    if (name !== defaultInput){
-      fetch(apiUrl+'suggestions?q=' + name + '&mixin=image&products=true')
+    if (term !== defaultInput){
+      fetch(apiUrl+'suggestions?q=' + term + '&mixin=image&products=true')
         .then(response => response.json())
         .then(
           data => {
             setProducts(data['results']);
             setSuggestions(data['spelling_suggestions']);
             setCorrectSpelling(data['spelling_correct']);
+            setSubmittedTerm(term);
             scrollTo();
           }
         );
@@ -64,7 +66,7 @@ function App() {
 
   // Reset button events
   function resetQuery() {
-    setName(defaultInput);
+    setTerm(defaultInput);
     setProducts(null);
     setSuggestions(null);
   } 
@@ -76,13 +78,21 @@ function App() {
   }
 
 
-  // Spelling suggestions event
+  // Spelling suggestions events
   function handleSuggestionClick(e){
-    handleNameChange(e);
-    handleSubmit();
+    handleInputChange(e);
+    const newTerm = e.currentTarget.value;
+    setSubmittedTerm(newTerm);
     setCorrectSpelling(true);
+    fetch(apiUrl+'suggestions?q=' + newTerm + '&mixin=image&products=true')
+    .then(response => response.json())
+    .then(
+      data => {
+        setProducts(data['results']);
+        setSuggestions(data['spelling_suggestions']);
+        scrollTo();
+      });
   }
-
 
   //Render App
   return (
@@ -91,9 +101,9 @@ function App() {
         <h1>welcome to product search<img src={logo} className='App-logo' alt='search-icon' /></h1>
         <div className='form-container'>
         <input className='form-input'
-          value={name}
+          value={term}
           onClick={clickField}
-          onChange={handleNameChange}
+          onChange={handleInputChange}
           onKeyDown={handleKeyDown} 
         />
         <button className='form-button' onClick={handleSubmit}> Submit </button>
@@ -114,14 +124,14 @@ function App() {
         />
         </div>
       </header>
-      <div name='app-main' className='App-main'>
+      <div term='app-main' className='App-main'>
         <Correction className='list-corrections' 
           suggestions={suggestions}
           correctSpelling={correctSpelling}
-          searchTerm={name}
+          searchTerm={submittedTerm}
           handleSuggestionClick={handleSuggestionClick}
         />
-        <Products name={name} 
+        <Products term={submittedTerm} 
           displaySuggestions={isSwitchedOn} 
           items={products}
         />

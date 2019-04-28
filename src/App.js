@@ -14,7 +14,6 @@ function App() {
   const [name, setName] = useState(defaultInput); 
   const [products, setProducts] = useState(null);
   const [suggestions, setSuggestions] = useState(null);
-  const [isClicked, setClick] = useState(false);
   const [isSwitchedOn, setSwitch] = useState(false);
   const apiUrl = 'https://intense-harbor-37098.herokuapp.com/';
 
@@ -42,8 +41,13 @@ function App() {
     if (name !== defaultInput){
       fetch(apiUrl+'search?q=' + name + '&mixin=image&suggestions=true')
         .then(response => response.json())
-        .then(data => setProducts(data['results']))
-        .then(data => setSuggestions(data['spelling_suggestions']));
+        .then(
+          data => {
+            setProducts(data['results']);
+            setSuggestions(data['spelling_suggestions']);
+            scrollTo();
+          }
+        );
     }
   }
 
@@ -84,7 +88,6 @@ function App() {
         <h1>welcome to product search<img src={logo} className='App-logo' alt='search-icon' /></h1>
         <div className='form-container'>
         <input className='form-input'
-          defaultValue={defaultInput}
           value={name}
           onClick={clickField}
           onChange={handleNameChange}
@@ -114,16 +117,10 @@ function App() {
           suggestions={suggestions}
           handleSuggestionClick={handleSuggestionClick}
         />
-        {/* <List className='list-products' 
-          name={name} 
-          displaySuggestions={isSwitchedOn} 
-          items={products} 
-        /> */}
         <Products name={name} 
           displaySuggestions={isSwitchedOn} 
           items={products}
         />
-        {/* <Img item={isClicked}/> */}
       </div>
       <footer>
       Test Demonstrator for <i>spellcheck feature</i>. <a href='https://github.com/michelBBC/cuddly-garbanzo' target='_blank' rel='noopener noreferrer'> Source</a>

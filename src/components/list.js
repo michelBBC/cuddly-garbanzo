@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import shortid from 'shortid';
 import './list.css';
 
 function List(props) {
-    const [isClicked, setClick] = useState(false);
+    // const [isClicked, setClick] = useState(false);
     const name = props.name;
-    const header = props.displaySuggestions ? ['Available products for ',  <u><i>{name}</i></u>] :['Did you mean?'];
+    const header = props.displaySuggestions ? ['Available products for ',  <u key={shortid.generate()}><i>{name}</i></u>] :['Did you mean?'];
 
     function handleClick(e){
-        console.log(e.target);
-        props.isClicked ? setClick(false) : setClick(e.target.value);
+        console.log(e.currentTarget.value);
+        // props.isClicked ? setClick(false) : setClick(e.target.value);
     }
 
     if (!props.items) {

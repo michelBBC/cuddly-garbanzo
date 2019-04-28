@@ -40,13 +40,10 @@ function App() {
   // Submit button events
   function handleSubmit() {
     if (name !== defaultInput){
-      fetch(apiUrl+'search?q=' + name + '&mixin=image')
+      fetch(apiUrl+'search?q=' + name + '&mixin=image&suggestions=true')
         .then(response => response.json())
-        .then(data => setProducts(data));
-      fetch(apiUrl+'correct?q=' + name)
-        .then(response => response.json())
-        .then(data => setSuggestions(data))
-        .then(scrollTo()); 
+        .then(data => setProducts(data['results']))
+        .then(data => setSuggestions(data['spelling_suggestions']));
     }
   }
 

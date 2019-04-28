@@ -57,7 +57,7 @@ function App() {
 
   function scrollTo() {
     scroller.scrollTo('app-main', {
-      duration: 1500,
+      duration: 1000,
       delay: 0,
       smooth: 'easeInOutQuart'
     })
@@ -124,7 +124,7 @@ function App() {
         />
         </div>
       </header>
-      <div term='app-main' className='App-main'>
+      <div name='app-main' className='App-main'>
         <Correction className='list-corrections' 
           suggestions={suggestions}
           correctSpelling={correctSpelling}
